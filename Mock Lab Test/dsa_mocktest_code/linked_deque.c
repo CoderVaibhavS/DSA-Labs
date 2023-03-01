@@ -3,7 +3,8 @@
 linked_deque *create_linked_process_deque() {
    // COMPLETE
    linked_deque *ld = (linked_deque *) malloc(sizeof(*ld));
-   ld->list = (process_linked_list *) malloc(sizeof(process_linked_list));
+   ld->list = create_empty_process_linked_list();
+   return ld;
 }
 
 bool add_first_linked_deque(linked_deque *ld, process p) {

@@ -30,6 +30,7 @@ bool add_at_index_linked_list(process_linked_list *list, size_t index, process p
     else if(index == 0) {
         list->head = n;
         n->next = temp;
+        temp->previous = list->head;
     }
     else {
         for(int i=1; i<index; i++) {
@@ -52,12 +53,14 @@ bool remove_first_linked_list(process_linked_list *list, process *p) {
     }
    // COMPLETE
    node *temp = list->head;
-   p = temp->process;
+   *p = *(temp->process);
    list->head = temp->next;
    if(list->head != NULL) {
     list->head->previous = NULL;
    }
-   free(temp);
+
+    if(list->size > 1)
+       free(temp);
    list->size--;
    return true;
 }
@@ -71,12 +74,15 @@ bool remove_last_linked_list(process_linked_list *list, process *p) {
    while(temp->next != NULL) {
     temp = temp->next;
    }
+   *p = *(temp->process);
    if(temp->previous != NULL) {
     temp->previous->next = NULL;
+    free(temp);
+    list->size--;
    }
-   p = temp->process;
-   free(temp);
-   list->size--;
+   else {
+    remove_first_linked_list(list, p);
+   }
    return true;
 }
 

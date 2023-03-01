@@ -66,6 +66,22 @@ static process **read_processes_from_file(char *filename, int *num_processes_ptr
     return processes;
 }
 
+process remove_process(linked_deque *ld, process *p, int *time) {
+    remove_last_linked_deque(ld, &(*p));
+    *time += (p->remaining_time) > TIME_QUANTUM ? TIME_QUANTUM : p->remaining_time;
+    p->turnaround = *time - p->arrival;
+    p->wait = p->turnaround - p->cpu_burst;
+    p->remaining_time -= TIME_QUANTUM;
+    // print_stats(*p);
+    if(p->remaining_time <= 0) {
+        print_stats(*p);
+    }
+    return *p;
+}
+
+void add_process(linked_deque *ld, process p) {
+    add_first_linked_deque(ld, p);
+}
 
 void visualize_round_robin(char *path) {
     int num_processes;
@@ -77,18 +93,25 @@ void visualize_round_robin(char *path) {
     linked_deque *ld = create_linked_process_deque();
 
     // COMPLETE using the ld for storing processes as described
-
-
-
-
-
-
-
-
-
-
-
-
+    add_process(ld, *(processes[0]));
+    process p;
+    process removed_process;
+    int time = 0;
+    int i = 1;
+    int c = 10;
+    // while(c--) {
+    while(!is_empty_linked_deque(ld)) {
+        removed_process = remove_process(ld, &p, &time);
+        while(i<num_processes) {
+            if(processes[i]->arrival <= time)
+                add_process(ld, *(processes[i++]));
+            else
+                break;
+        }
+        if(removed_process.remaining_time > 0) {
+            add_process(ld, removed_process);
+        }
+    }
 
     // Free the allocated memory
     for (int i = 0; i < num_processes; i++) {
