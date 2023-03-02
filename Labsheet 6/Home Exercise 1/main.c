@@ -37,6 +37,7 @@ int part(Bitsian bitsians[], int lo, int hi, int pInd) {
 
     return pivPos;
 }
+
 int main() {
 
     FILE *fptr;
