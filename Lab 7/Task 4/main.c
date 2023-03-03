@@ -44,10 +44,21 @@ void radix_exchange(int arr[], int lo, int hi, int bit) {
 }
 
 int main() {
-    int arr[9] = {29, 75, 57, 39, 36, 20, 55, 12, 100};
-    radix_exchange(arr, 0, 8, 9);    // assuming max no of bits 8
+    int n;
+    FILE *fptr;
+    fptr = fopen("../n_integers.txt", "r");
 
-    for(int i=0; i<9; i++) {
+    if(fptr == NULL)    printf("Error opening file\n");
+    fscanf(fptr, "%d,[", &n);
+
+    int arr[n];
+    for(int i=0; i<n; i++) {
+        fscanf(fptr, "%d", &arr[i]);
+    }
+    
+    radix_exchange(arr, 0, n-1, 16);    // assuming max no of bits 16
+
+    for(int i=0; i<n; i++) {
         printf("%d ", arr[i]);
     }
     printf("\n");

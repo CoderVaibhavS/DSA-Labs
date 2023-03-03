@@ -18,9 +18,8 @@ int main()
     add_last_to_linked_list(list, p3);
     add_last_to_linked_list(list, p4);
     add_last_to_linked_list(list, p5);
-    print_linked_list(list);
 
-    remove_first_linked_list(list, &p1);
+    remove_last_linked_list(list, &p5);
     print_linked_list(list);
 
 

@@ -24,6 +24,7 @@ bool add_at_index_linked_list(process_linked_list *list, size_t index, process p
     node *n = create_node_for_list(p);
     if(index > list->size)  return false;
     node *temp = list->head;
+    if(n == NULL)   return false;
     if(list->size == 0) {
         list->head = n;
     }
@@ -51,39 +52,38 @@ bool remove_first_linked_list(process_linked_list *list, process *p) {
     if (list->size == 0) {
         return false;
     }
-   // COMPLETE
-   node *temp = list->head;
-   *p = *(temp->process);
-   list->head = temp->next;
-   if(list->head != NULL) {
-    list->head->previous = NULL;
-   }
+    // COMPLETE
+    node *temp = list->head;
+    *p = *(temp->process);
+    list->head = temp->next;
+    if(list->head != NULL) {
+     list->head->previous = NULL;
+    }
 
-    if(list->size > 1)
-       free(temp);
-   list->size--;
-   return true;
+    free(temp);
+    list->size--;
+    return true;
 }
 
 bool remove_last_linked_list(process_linked_list *list, process *p) {
     if (list->size == 0) {
         return false;
     }
-   // COMPLETE
-   node *temp = list->head;
-   while(temp->next != NULL) {
-    temp = temp->next;
-   }
-   *p = *(temp->process);
-   if(temp->previous != NULL) {
-    temp->previous->next = NULL;
-    free(temp);
-    list->size--;
-   }
-   else {
-    remove_first_linked_list(list, p);
-   }
-   return true;
+    // COMPLETE
+    node *temp = list->head;
+    while(temp->next != NULL) {
+     temp = temp->next;
+    }
+    *p = *(temp->process);
+    if(temp->previous != NULL) {
+     temp->previous->next = NULL;
+     free(temp);
+     list->size--;
+    }
+    else {
+     remove_first_linked_list(list, p);
+    }
+    return true;
 }
 
 size_t get_size_linked_list(process_linked_list *list) {

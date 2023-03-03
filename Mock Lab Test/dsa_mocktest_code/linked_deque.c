@@ -33,7 +33,7 @@ size_t get_size_linked_deque(linked_deque *ld) {
 
 bool is_empty_linked_deque(linked_deque *ld) {
     // COMPLETE
-    return get_size_linked_deque == 0;
+    return get_size_linked_deque(ld) == 0;
 }
 
 void print_linked_deque(linked_deque *ld) {

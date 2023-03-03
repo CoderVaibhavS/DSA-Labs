@@ -67,12 +67,11 @@ static process **read_processes_from_file(char *filename, int *num_processes_ptr
 }
 
 process remove_process(linked_deque *ld, process *p, int *time) {
-    remove_last_linked_deque(ld, &(*p));
+    remove_last_linked_deque(ld, p);
     *time += (p->remaining_time) > TIME_QUANTUM ? TIME_QUANTUM : p->remaining_time;
     p->turnaround = *time - p->arrival;
     p->wait = p->turnaround - p->cpu_burst;
-    p->remaining_time -= TIME_QUANTUM;
-    // print_stats(*p);
+    p->remaining_time -= (p->remaining_time) > TIME_QUANTUM ? TIME_QUANTUM : p->remaining_time;
     if(p->remaining_time <= 0) {
         print_stats(*p);
     }
@@ -98,17 +97,18 @@ void visualize_round_robin(char *path) {
     process removed_process;
     int time = 0;
     int i = 1;
-    int c = 10;
+    int c = 12;
     // while(c--) {
     while(!is_empty_linked_deque(ld)) {
         removed_process = remove_process(ld, &p, &time);
         while(i<num_processes) {
-            if(processes[i]->arrival <= time)
+            if(processes[i]->arrival <= time) {
                 add_process(ld, *(processes[i++]));
+            }
             else
                 break;
         }
-        if(removed_process.remaining_time > 0) {
+        if(p.remaining_time > 0) {
             add_process(ld, removed_process);
         }
     }
