@@ -44,14 +44,13 @@ int lomuto(Person persons[], int lo, int hi, int pInd) {
     j = lo;
 
     while(j < hi) {
-        if(persons[i].height < pivot.height) {
+        if(persons[j].height < pivot.height) {
             swap(persons, i, j);
             i++;
             j++;
         }
 
         else {
-            swap(persons, i, j);
             j++;
         }
     }
