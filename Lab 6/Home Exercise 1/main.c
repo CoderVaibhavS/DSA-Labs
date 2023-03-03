@@ -16,7 +16,7 @@ int part(Bitsian bitsians[], int lo, int hi, int pInd) {
     right = hi;
 
     while(left < right) {
-        for(; left <= hi && bitsians[left].rollno[4] == 'A' && bitsians[left].rollno[5] != 'A'; left++);
+        for(; left <= hi && bitsians[left].rollno[4] == 'A' && (bitsians[left].rollno[5] != 'A' || bitsians[left].rollno[5] != 'B'); left++);
 
         for(; bitsians[right].rollno[4] == 'B'; right--);
 
