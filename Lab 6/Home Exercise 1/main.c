@@ -27,7 +27,7 @@ int part(Bitsian bitsians[], int lo, int hi, int pInd) {
         }
     }
 
-    if(pivot.rollno[4] == 'A' && pivot.rollno[4] != 'A' && left <= hi) {
+    if(pivot.rollno[4] == 'A' && (bitsians[left].rollno[5] != 'A' || bitsians[left].rollno[5] != 'B') && left <= hi) {
         pivPos = left;
     }
     else {
